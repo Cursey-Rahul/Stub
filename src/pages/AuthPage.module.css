@@ -1,0 +1,129 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 0%, #1a0000 0%, #0f0f0f 65%);
+  padding: 24px;
+}
+
+.box {
+  background: rgba(26,26,26,0.96);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: scaleIn 0.3s cubic-bezier(0.34,1.2,0.64,1);
+}
+
+.logo {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 28px;
+  letter-spacing: 5px;
+  color: var(--red);
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input {
+  background: #222;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 7px;
+  color: #fff;
+  font-size: 14px;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.input:focus { border-color: var(--red); }
+.input::placeholder { color: #484848; }
+
+.error {
+  color: #ff6b6b;
+  font-size: 13px;
+  margin-top: -4px;
+}
+
+.primaryBtn {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px;
+  margin-top: 4px;
+  transition: background 0.2s, transform 0.15s, opacity 0.2s;
+}
+
+.primaryBtn:hover:not(:disabled) { background: #f40612; transform: scale(1.01); }
+.primaryBtn:disabled { opacity: 0.6; }
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #3a3a3a;
+  font-size: 13px;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.guestBtn {
+  background: transparent;
+  color: #ccc;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px;
+  transition: all 0.2s;
+}
+
+.guestBtn:hover { background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.28); }
+
+.switchText {
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+  margin-top: 4px;
+}
+
+.switchLink {
+  background: none;
+  border: none;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.18s;
+}
+
+.switchLink:hover { color: #ff4444; }

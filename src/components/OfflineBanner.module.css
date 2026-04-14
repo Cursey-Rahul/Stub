@@ -1,0 +1,26 @@
+.banner {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  animation: slideDown 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.offline {
+  background: #2a1a00;
+  color: #ffb347;
+  border: 1px solid rgba(255,179,71,0.3);
+}
+
+.reconnected {
+  background: #0a2a0a;
+  color: #4caf50;
+  border: 1px solid rgba(76,175,80,0.3);
+}
