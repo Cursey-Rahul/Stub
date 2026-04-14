@@ -3,67 +3,47 @@ import { fetchTitles } from '../api/titles'
 
 export function useInfiniteScroll(typeFilter) {
   const [items, setItems] = useState([])
+  const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true)
-
-  const nextToken = useRef(null)
   const seen = useRef(new Set())
   const mounted = useRef(true)
 
-  // reset on filter change
   useEffect(() => {
     mounted.current = true
     setItems([])
+    setPage(1)
     setHasMore(true)
-    nextToken.current = null
     seen.current = new Set()
-
-    loadMore() // initial fetch
-
     return () => { mounted.current = false }
   }, [typeFilter])
 
-  const loadMore = useCallback(async () => {
-    if (loading || !hasMore) return
-
+  useEffect(() => {
+    if (!hasMore) return
+    const controller = new AbortController()
     setLoading(true)
 
-    try {
-      const res = await fetchTitles({
-        type: typeFilter,
-        nextPageToken: nextToken.current
+    fetchTitles({ page, type: typeFilter, limit: 20, signal: controller.signal })
+      .then(({ titles }) => {
+        if (!mounted.current) return
+        if (!titles.length) { setHasMore(false); return }
+        const unique = titles.filter(item => {
+          if (!item?.id || seen.current.has(item.id)) return false
+          seen.current.add(item.id)
+          return true
+        })
+        setItems(prev => [...prev, ...unique])
+        if (titles.length < 20) setHasMore(false)
       })
+      .catch(err => { if (err.name !== 'AbortError') console.warn(err) })
+      .finally(() => { if (mounted.current) setLoading(false) })
 
-      if (!mounted.current) return
+    return () => controller.abort()
+  }, [page, typeFilter, hasMore])
 
-      const titles = res.titles || []
-
-      if (!titles.length) {
-        setHasMore(false)
-        return
-      }
-
-      // remove duplicates
-      const unique = titles.filter(item => {
-        const id = item?.id || item?.tconst
-        if (!id || seen.current.has(id)) return false
-        seen.current.add(id)
-        return true
-      })
-
-      setItems(prev => [...prev, ...unique])
-
-      // update token
-      nextToken.current = res.nextPageToken || null
-
-      if (!nextToken.current) setHasMore(false)
-
-    } catch (err) {
-      console.warn(err)
-    } finally {
-      if (mounted.current) setLoading(false)
-    }
-  }, [typeFilter, loading, hasMore])
+  const loadMore = useCallback(() => {
+    if (!loading && hasMore) setPage(p => p + 1)
+  }, [loading, hasMore])
 
   return { items, loading, hasMore, loadMore }
 }
