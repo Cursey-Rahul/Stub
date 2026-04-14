@@ -23,7 +23,7 @@ export default function Navbar({ active, onNavigate, onSearch, onProfile }) {
 
   return (
     <nav className={`${styles.nav} ${scrolled ? styles.solid : ''}`}>
-      <span className={styles.logo}>STREAMVAULT</span>
+      <span className={styles.logo}>STUB</span>
 
       <ul className={styles.tabs}>
         {TABS.map(tab => (

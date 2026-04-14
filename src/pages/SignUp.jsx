@@ -27,7 +27,7 @@ export default function SignUp({ onGoSignIn }) {
   return (
     <div className={styles.page}>
       <div className={styles.box}>
-        <h1 className={styles.logo}>STREAMVAULT</h1>
+        <h1 className={styles.logo}>STUB</h1>
         <h2 className={styles.heading}>Create Account</h2>
 
         <form className={styles.form} onSubmit={handleSubmit}>
